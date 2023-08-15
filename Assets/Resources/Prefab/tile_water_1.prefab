@@ -62,10 +62,123 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9809f4a3eca68134eae44bbbcb7fc4e5, type: 2}
     - target: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
       propertyPath: m_Name
-      value: tile_water_1 Variant
+      value: tile_water_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8999794447143133165}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8359595044627496198}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5779478842600493421}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6776461803123639758}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 786811437462172491}
   m_SourcePrefab: {fileID: 100100000, guid: 5c59338493164204284c493367d62fa2, type: 3}
+--- !u!1 &419819179310023484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+  m_PrefabInstance: {fileID: 653609636421090925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-8999794447143133165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419819179310023484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &8359595044627496198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419819179310023484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875e89dbd04854a4681fd108603f8900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material_: {fileID: 0}
+  normal_color_: {r: 0, g: 0, b: 0, a: 0}
+  move_color_: {r: 0, g: 0, b: 0, a: 0}
+  path_color_: {r: 0, g: 0, b: 0, a: 0}
+--- !u!64 &5779478842600493421
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419819179310023484}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8493314787843356468, guid: 5c59338493164204284c493367d62fa2, type: 3}
+--- !u!114 &6776461803123639758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419819179310023484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12f1c974e64b404d84f626ec3061c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id_: 7
+  name_: Water
+  terrain_property_: 2
+  block_property_: 01000000000000000100000000000000
+  guid_: 0
+  unit_: {fileID: 0}
+  x_: 0
+  y_: 0
+  g_: 0
+  f_: 0
+  parent_: {fileID: 0}
+--- !u!114 &786811437462172491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419819179310023484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6f20272d823ae49b269c72a56b990c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preselect_color_: {r: 0, g: 0, b: 0, a: 0}
+  selected_color_: {r: 0, g: 0, b: 0, a: 0}

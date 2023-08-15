@@ -58,6 +58,56 @@
         "block_property_" : [
             1, 2, 1, 0
         ]
+    },
+    {
+        "id_" : 6,
+        "prefab_name_" : "tile_factory_1",
+        "script_name_" : "TileFactory",
+        "name_" : "Factory",
+        "terrain_property_" : 3,
+        "block_property_" : [
+            1, 2, 1, 0
+        ]   
+    },
+    {
+        "id_" : 7,
+        "prefab_name_" : "tile_water_1",
+        "script_name_" : "TileWater",
+        "name_" : "Water",
+        "terrain_property_" : 2,
+        "block_property_" : [
+            1, 0, 1, 0
+        ]
+    },
+    {
+        "id_" : 8,
+        "prefab_name_" : "tile_home_1",
+        "script_name_" : "TileHome",
+        "name_" : "Home",
+        "terrain_property_" : 4,
+        "block_property_" : [
+            1, 2, 1, 0
+        ]
+    },
+    {
+        "id_" : 9,
+        "prefab_name_" : "tile_road_1",
+        "script_name_" : "TileRoad",
+        "name_" : "Road",
+        "terrain_property_" : 1,
+        "block_property_" : [
+            1, 1, 1, 0
+        ]
+    },
+    {
+        "id_" : 10,
+        "prefab_name_" : "tile_stone_1",
+        "script_name_" : "TileStone",
+        "name_" : "Stone",
+        "terrain_property_" : 3,
+        "block_property_" : [
+            2, 0, 1, 0
+        ]
     }
 
 ]

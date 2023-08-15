@@ -164,10 +164,10 @@ PrefabInstance:
       addedObject: {fileID: 168577773248152663}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 524ed554587652a4e96a99292c76b72d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7567506483384867464}
+      addedObject: {fileID: -6864686154000949930}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 524ed554587652a4e96a99292c76b72d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6864686154000949930}
+      addedObject: {fileID: 6263463825139501368}
   m_SourcePrefab: {fileID: 100100000, guid: 524ed554587652a4e96a99292c76b72d, type: 3}
 --- !u!1 &3564889732375744156 stripped
 GameObject:
@@ -192,6 +192,11 @@ MonoBehaviour:
   block_property_: 01000000020000000100000000000000
   guid_: 0
   unit_: {fileID: 0}
+  x_: 0
+  y_: 0
+  g_: 0
+  f_: 0
+  parent_: {fileID: 0}
 --- !u!114 &2235556753854110400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,20 +237,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5744871928087652441, guid: 524ed554587652a4e96a99292c76b72d, type: 3}
---- !u!114 &7567506483384867464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3564889732375744156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6f20272d823ae49b269c72a56b990c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preselect_color_: {r: 0, g: 0, b: 0, a: 0}
-  selected_color_: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-6864686154000949930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +253,20 @@ MonoBehaviour:
   normal_color_: {r: 0, g: 0, b: 0, a: 0}
   move_color_: {r: 0, g: 0, b: 0, a: 0}
   path_color_: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &6263463825139501368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3564889732375744156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6f20272d823ae49b269c72a56b990c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preselect_color_: {r: 0, g: 0, b: 0, a: 0}
+  selected_color_: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &4193652790263927846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 524ed554587652a4e96a99292c76b72d, type: 3}

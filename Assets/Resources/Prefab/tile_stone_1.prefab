@@ -300,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9236a0d2d41ce5542b0e1761b09858a2, type: 2}
     - target: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
       propertyPath: m_Name
-      value: tile_stone_1 Variant
+      value: tile_stone_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -314,10 +314,123 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c59338493164204284c493367d62fa2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 423305995919537583}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6076596864900820175}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3948736814717488986}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2301489673776537410}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7979501333685946998}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3454867158767330066}
   m_SourcePrefab: {fileID: 100100000, guid: 5c59338493164204284c493367d62fa2, type: 3}
 --- !u!4 &4993034136216064409 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c59338493164204284c493367d62fa2, type: 3}
   m_PrefabInstance: {fileID: 4809962508367672946}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5620776812691753763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c59338493164204284c493367d62fa2, type: 3}
+  m_PrefabInstance: {fileID: 4809962508367672946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6076596864900820175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620776812691753763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &-3948736814717488986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620776812691753763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875e89dbd04854a4681fd108603f8900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material_: {fileID: 0}
+  normal_color_: {r: 0, g: 0, b: 0, a: 0}
+  move_color_: {r: 0, g: 0, b: 0, a: 0}
+  path_color_: {r: 0, g: 0, b: 0, a: 0}
+--- !u!64 &-2301489673776537410
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620776812691753763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8493314787843356468, guid: 5c59338493164204284c493367d62fa2, type: 3}
+--- !u!114 &7979501333685946998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620776812691753763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048856c0d97925f4f8b4e1efce0e6fd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id_: 10
+  name_: Stone
+  terrain_property_: 3
+  block_property_: 02000000000000000100000000000000
+  guid_: 0
+  unit_: {fileID: 0}
+  x_: 0
+  y_: 0
+  g_: 0
+  f_: 0
+  parent_: {fileID: 0}
+--- !u!114 &-3454867158767330066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620776812691753763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6f20272d823ae49b269c72a56b990c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preselect_color_: {r: 0, g: 0, b: 0, a: 0}
+  selected_color_: {r: 0, g: 0, b: 0, a: 0}
