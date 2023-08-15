@@ -1,0 +1,70 @@
+[
+    {
+        "id_" : 0,
+        "name_" : "Solider",
+        "prefab_name_" : "unit_solider",
+        "script_name_" : "UnitSolider",
+        "position_property_" : 2,
+        "attack_position_property_" : [
+            0,1,1,1,0
+        ],
+        "move_property_" : 3,
+        "view_property_" : 4,
+        "attack_scope_property_" : [1,1],
+        "move_terrain_property_" : [
+            0, 1, 1, 1, 1, 1, 0
+        ],
+        "unit_type_" : 0
+    },
+    {
+        "id_" : 1,
+        "name_" : "Troop Carriter",
+        "prefab_name_" : "unit_troop_carriter",
+        "script_name_" : "UnitTroopCarriter",
+        "position_property_" : 2,
+        "attack_position_property_" : [
+            0,0,0,0,0
+        ],
+        "move_property_" : 4,
+        "view_property_" : 4,
+        "attack_scope_property_" : [0,0],
+        "move_terrain_property_" : [
+            0, 1, 0, 1, 0, 0
+        ],
+        "unit_type_" : 1
+    },
+    {
+        "id_" : 2,
+        "name_" : "Missile",
+        "prefab_name_" : "unit_missile",
+        "script_name_" : "UnitMissile",
+        "position_property_" : 2,
+        "attack_position_property_" : [
+            0,1,1,0,0
+        ],
+        "move_property_" : 4,
+        "view_property_" : 3,
+        "attack_scope_property_" : [3,5],
+        "move_terrain_property_" : [
+            0, 1, 0, 1, 0, 0
+        ],
+        "unit_type_" : 1
+    },
+    {
+        "id_" : 3,
+        "name_" : "Helicopter",
+        "prefab_name_" : "unit_helicopter",
+        "script_name_" : "UnitHelicopter",
+        "position_property_" : 3,
+        "attack_position_property_" : [
+            0,1,1,1,0
+        ],
+        "move_property_" : 6,
+        "view_property_" : 5,
+        "attack_scope_property_" : [1,1],
+        "move_terrain_property_" : [
+            0, 1, 1, 1, 1, 1
+        ],
+        "unit_type_" : 2
+    }
+]

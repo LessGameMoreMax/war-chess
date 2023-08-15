@@ -1,0 +1,63 @@
+[
+    {
+        "id_": 0,
+        "prefab_name_": "tile_bridge_1",
+        "script_name_" : "TileBridge",
+        "name_" : "Bridge",
+        "terrain_property_": 1,
+        "block_property_" : [
+            1, 1, 1, 0
+        ]
+    },
+    {
+        "id_": 1,
+        "prefab_name_": "tile_build_1",
+        "script_name_" : "TileBuild",
+        "name_" : "Build",
+        "terrain_property_": 3,
+        "block_property_" : [
+            1, 2, 1, 0
+        ]
+    },
+    {
+        "id_": 2,
+        "prefab_name_": "tile_forest_1",
+        "script_name_" : "TileForest",
+        "name_" : "Forest",
+        "terrain_property_": 1,
+        "block_property_" : [
+            2, 3, 1, 0
+        ]
+    },
+    {
+        "id_": 3,
+        "prefab_name_": "tile_forest_2",
+        "script_name_" : "TileForest",
+        "name_" : "Forest",
+        "terrain_property_" : 1,
+        "block_property_" : [
+            2, 3, 1, 0
+        ]
+    },
+    {
+        "id_": 4,
+        "prefab_name_": "tile_forest_3",
+        "script_name_" : "TileForest",
+        "name_" : "Forest",
+        "terrain_property_" : 1,
+        "block_property_" : [
+            2, 3, 1, 0
+        ]
+    },
+    {
+        "id_": 5,
+        "prefab_name_": "tile_grass_1",
+        "script_name_" : "TileGrass",
+        "name_" : "Grass",
+        "terrain_property_" : 1,
+        "block_property_" : [
+            1, 2, 1, 0
+        ]
+    }
+
+]
