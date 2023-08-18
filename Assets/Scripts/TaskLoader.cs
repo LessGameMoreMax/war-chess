@@ -7,14 +7,24 @@ public class UnitAndPlaceInfo{
     public int id_;
     public int x_;
     public int y_;
+    public int character_id_;
+}
+
+public class BuildAndPlaceInfo{
+    public int x_;
+    public int y_;
+    public int character_id_;
 }
 
 public class TaskInfo{
     public int id_;
     public string name_;
     public int map_id_;
-    public List<string> faction_list_;
-    public List<List<UnitAndPlaceInfo>> unit_list_;
+    public List<List<int>> power_;
+    public List<int> player_power_;
+    public List<int> power_initial_money_;
+    public List<UnitAndPlaceInfo> unit_list_;
+    public List<BuildAndPlaceInfo> build_list_;
 }
 
 public class TaskLoader : Singleton<TaskLoader>
@@ -37,25 +47,52 @@ public class TaskLoader : Singleton<TaskLoader>
         task.id_ = task_info.id_;
         task.name_ = task_info.name_;
         task.map_ = MapPool.GetInstance().GetMap(task_info.map_id_);
-        task.map_.faction_units_ = new Dictionary<string, List<GameObject>>();
+        task.id_character_dic_ = new SortedDictionary<int, Character>();
+        task.character_friend_set_dic_ = new Dictionary<int, HashSet<int>>();
+        for(int i = 0;i != task_info.power_.Count; ++i){
+            List<int> character_list = task_info.power_[i];
+            HashSet<int> friend_set = new HashSet<int>();
+            for(int j = 0;j != character_list.Count; ++j){
+                int character_id = character_list[j];
+                task.id_character_dic_.Add(character_id, CharacterLoader.GetInstance().GetCharacter(character_id));
+                friend_set.Add(character_id);
+            }
+            foreach(int character_id in friend_set)
+                task.character_friend_set_dic_.Add(character_id, friend_set);
+        }
+        int count = 0;
+        foreach(Character character in task.id_character_dic_.Values){
+            character.money_ = task_info.power_initial_money_[count++];
+        }
+        task.player_character_set_ = new HashSet<int>();
+        for(int i = 0;i != task_info.player_power_.Count; ++i)
+            task.player_character_set_.Add(task_info.player_power_[i]);
         int guid = 0;
-        for(int i = 0;i != task_info.faction_list_.Count; ++i){
-            string faction_name = task_info.faction_list_[i];
-            task.map_.faction_units_.Add(faction_name, new List<GameObject>());
-            for(int j = 0;j != task_info.unit_list_[i].Count; ++j){
-                GameObject unit_prefab = UnitPrefabPool.GetInstance().GetUnitPrefab(task_info.unit_list_[i][j].id_);
-                int x = task_info.unit_list_[i][j].x_;
-                int y = task_info.unit_list_[i][j].y_;
-                GameObject unit_prefab_copy = UnitInstantiate.Generate(unit_prefab, task.map_.GetTile(x, y).transform);
-                Unit unit = unit_prefab_copy.GetComponent<Unit>();
-                unit.guid_ = guid++;
-                unit.x_ = x;
-                unit.y_ = y;
-                Tile tile = task.map_.GetTile(x, y).GetComponent<Tile>();
-                unit.tile_ = tile;
-                tile.unit_ = unit;
-                task.map_.faction_units_[faction_name].Add(unit_prefab_copy);
-            }            
+        for(int i = 0;i != task_info.unit_list_.Count; ++i){
+            GameObject unit_prefab = UnitPrefabPool.GetInstance().GetUnitPrefab(task_info.unit_list_[i].id_);
+            int x = task_info.unit_list_[i].x_;
+            int y = task_info.unit_list_[i].y_;
+            GameObject unit_prefab_copy = UnitInstantiate.Generate(unit_prefab, task.map_.GetTile(x, y).transform);
+            Unit unit = unit_prefab_copy.GetComponent<Unit>();
+            unit.guid_ = guid++;
+            unit.x_ = x;
+            unit.y_ = y;
+            Tile tile = task.map_.GetTile(x, y).GetComponent<Tile>();
+            unit.tile_ = tile;
+            tile.unit_ = unit;
+            int character_id = task_info.unit_list_[i].character_id_;
+            unit.InitializeCharacter(character_id);
+            unit.SetActiveColor();
+        }
+        task.neutral_building_set_ = new HashSet<int>();
+        guid = 0;
+        for(int i = 0;i != task_info.build_list_.Count; ++i){
+            BuildAndPlaceInfo build_and_place_info = task_info.build_list_[i];
+            GameObject tile = task.map_.GetTile(build_and_place_info.x_, build_and_place_info.y_);
+            Building building = tile.GetComponent<Building>();
+            Debug.Assert(building != null, "TaskLoader.cs---building load error");
+            building.InitializeBuilding();
+            building.AttachToCharacter(build_and_place_info.character_id_);
         }
     }
 

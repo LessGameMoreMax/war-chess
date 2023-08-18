@@ -20,11 +20,17 @@ public abstract class Unit : MonoBehaviour
     public int x_;
     public int y_;
     public Tile tile_;
-
+    public int character_id_;
+    public Material material_;
+    public Color active_color_;
+    public Color bide_color_;
+    
+    //Use for move
     public HashSet<GameObject> move_tiles_set_;
     public List<GameObject> path_tiles_list_;
     private Tile restore_tile_;
     private Vector3 restore_position_;
+
 
     // Start is called before the first frame update
     void Start()
@@ -137,6 +143,23 @@ public abstract class Unit : MonoBehaviour
         ClearPath();
         ClearMove();
         SelectManager.GetInstance().current_state_ = CurrentStateEnum.Moved;
+    }
+
+    public virtual void InitializeCharacter(int character_id){
+        character_id_ = character_id;
+        Character character = Task.GetInstance().GetCharacter(character_id_);
+        character.AddUnit(guid_);
+        material_ = GetComponent<MeshRenderer>().material;
+        active_color_ = character.faction_.color_;
+        bide_color_ = Color.black;
+    }
+
+    public virtual void SetActiveColor(){
+        material_.color = active_color_;
+    }
+
+    public virtual void SetBideColor(){
+        material_.color = bide_color_;
     }
 
 

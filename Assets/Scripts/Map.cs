@@ -10,9 +10,7 @@ public class Map{
     public float interval_;
     public List<GameObject> tiles_;
 
-    // Load from task loader
-    public Dictionary<string, List<GameObject>> faction_units_;
-
+    // Use for move
     List<GameObject> open_list_;
     List<GameObject> close_list_;
 

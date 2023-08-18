@@ -1,0 +1,12 @@
+[
+    {
+        "id_" : 0,
+        "name_" : "Tom",
+        "faction_id_" : 0
+    },
+    {
+        "id_" : 1,
+        "name_" : "Amy",
+        "faction_id_" : 1
+    }
+]
