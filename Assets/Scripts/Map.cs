@@ -27,7 +27,7 @@ public class Map{
     }
 
     public GameObject GetTile(int x, int y){
-        if(x < 0 || y < 0) return null;
+        if(x < 0 || y < 0 || x >= width_ || y >= height_) return null;
         int index = x + y * width_;
         if(index >= tiles_.Count) return null;
         return tiles_[index];
@@ -47,13 +47,14 @@ public class Map{
     private void RecursiveSearchMove(int x, int y, int unit_type, int move_property, HashSet<GameObject> move_tiles_set){
         GameObject temp = GetTile(x, y);
         if(temp == null) return;
-        if(move_tiles_set.Contains(temp)) return;
         Tile tile = temp.GetComponent<Tile>();
         int block_property = tile.GetBlockProperty(unit_type);
         if(block_property == 0 || move_property < block_property || tile.unit_ != null) return;
-        temp.GetComponent<TileColor>().ShowMoveColor();
         move_property -= block_property;
-        move_tiles_set.Add(temp);
+        if(!move_tiles_set.Contains(temp)){
+            temp.GetComponent<TileColor>().ShowMoveColor();
+            move_tiles_set.Add(temp);
+        }
         
         RecursiveSearchMove(x - 1, y, unit_type, move_property, move_tiles_set);
         RecursiveSearchMove(x, y - 1, unit_type, move_property, move_tiles_set);

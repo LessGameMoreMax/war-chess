@@ -31,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 7843573611087837824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5778596, y: 3.2797027, z: -1.1053141}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.79671, y: 1, z: 0.79671}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7343609714025852099
 MeshFilter:
@@ -127,9 +127,17 @@ MonoBehaviour:
   move_property_: 3
   view_property_: 4
   attack_scope_property_: 0100000001000000
+  move_terrain_property_: 
+  unit_type_: 0
   guid_: 0
   x_: 0
   y_: 0
+  tile_: {fileID: 0}
+  character_id_: 0
+  material_: {fileID: 0}
+  active_color_: {r: 0, g: 0, b: 0, a: 0}
+  bide_color_: {r: 0, g: 0, b: 0, a: 0}
+  path_tiles_list_: []
 --- !u!114 &-5676875883284441536
 MonoBehaviour:
   m_ObjectHideFlags: 0
