@@ -6,7 +6,8 @@ public enum CurrentStateEnum{
     Idle,
     Selected,
     Moving,
-    Moved
+    Moved,
+    ShowAttackRange
 }
 
 public class SelectManager : MonoBehaviour
@@ -48,13 +49,16 @@ public class SelectManager : MonoBehaviour
                 MouseMovedDetect();
                 MouseMovedInput();
                 break;
+            case CurrentStateEnum.ShowAttackRange:
+                MouseShowAttackRangeDetect();
+                MouseShowAttackRangeInput();
+                break;
             default:
                 break;
         }
 
     }
 
-    // every state MouseDetect!
     private void MouseIdleDetect(){
         Ray mouse_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit_info;
@@ -73,8 +77,9 @@ public class SelectManager : MonoBehaviour
 
     private void MouseIdleInput(){
         if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
-            if(current_gameObject_.GetComponent<Unit>() != null){
-                current_gameObject_.GetComponent<Unit>().SearchMove();
+            Unit unit = current_gameObject_.GetComponent<Unit>();
+            if(unit != null){
+                unit.SearchMove();
                 current_gameObject_.GetComponent<ContourColor>().ShowSelectColor();
                 select_gameObject_ = current_gameObject_;
                 current_state_ = CurrentStateEnum.Selected;
@@ -118,9 +123,16 @@ public class SelectManager : MonoBehaviour
             current_state_ = CurrentStateEnum.Idle;
         }
         if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
-            if(unit.HavePath(current_gameObject_)){
+            if(unit.HavePath(current_gameObject_) && Task.GetInstance().current_character_ == unit.character_id_  && unit.IsActive()){
                 current_state_ = CurrentStateEnum.Moving;
                 unit.MoveTo();
+                return;
+            }
+            if(current_gameObject_ == select_gameObject_){
+                unit.ClearPath();
+                unit.ClearMove();
+                unit.ShowAttackRange();
+                current_state_ = CurrentStateEnum.ShowAttackRange;
                 return;
             }
         }
@@ -142,12 +154,29 @@ public class SelectManager : MonoBehaviour
         if(Input.GetMouseButtonDown(1)){
             Unit unit = select_gameObject_.GetComponent<Unit>();
             if(unit != null){
+                unit.HideActionUI();
                 unit.Restore();
-                select_gameObject_.GetComponent<Unit>().SearchMove();
+                unit.SearchMove();
                 current_state_ = CurrentStateEnum.Selected;
                 return;
             }
         }
 
+    }
+
+    private void MouseShowAttackRangeDetect(){
+
+    }
+
+    private void MouseShowAttackRangeInput(){
+        if(Input.GetMouseButtonDown(1)){
+            Unit unit = select_gameObject_.GetComponent<Unit>();
+            if(unit != null){
+                unit.ClearAttackRange();
+                unit.SearchMove();
+                current_state_ = CurrentStateEnum.Selected;
+                return;
+            }
+        }
     }
 }

@@ -60,6 +60,11 @@ public class TaskLoader : Singleton<TaskLoader>
             foreach(int character_id in friend_set)
                 task.character_friend_set_dic_.Add(character_id, friend_set);
         }
+        task.character_id_list_ = new List<int>();
+        foreach(int character_id in task.id_character_dic_.Keys){
+            task.character_id_list_.Add(character_id);
+        }
+        task.current_character_ = task.character_id_list_[0];
         int count = 0;
         foreach(Character character in task.id_character_dic_.Values){
             character.money_ = task_info.power_initial_money_[count++];
@@ -77,12 +82,14 @@ public class TaskLoader : Singleton<TaskLoader>
             unit.guid_ = guid++;
             unit.x_ = x;
             unit.y_ = y;
+            unit.attack_tiles_set_ = new HashSet<GameObject>();
+            unit.attack_real_tiles_set_ = new HashSet<GameObject>();
             Tile tile = task.map_.GetTile(x, y).GetComponent<Tile>();
             unit.tile_ = tile;
             tile.unit_ = unit;
             int character_id = task_info.unit_list_[i].character_id_;
             unit.InitializeCharacter(character_id);
-            unit.SetActiveColor();
+            unit.SetActive();
         }
         task.neutral_building_set_ = new HashSet<int>();
         guid = 0;

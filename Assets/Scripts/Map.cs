@@ -62,6 +62,33 @@ public class Map{
         RecursiveSearchMove(x, y + 1, unit_type, move_property, move_tiles_set);
     }
 
+    public void SearchAttack(Unit unit){
+        int attack_scope = unit.attack_scope_property_[1];
+        if(attack_scope == 0) return;
+
+        unit.FindAttackRange(unit.tile_.gameObject, false);
+        RecursiveSearchAttack(unit.x_ - 1, unit.y_, unit, unit.move_property_);
+        RecursiveSearchAttack(unit.x_, unit.y_ - 1, unit, unit.move_property_);
+        RecursiveSearchAttack(unit.x_ + 1, unit.y_, unit, unit.move_property_);
+        RecursiveSearchAttack(unit.x_, unit.y_ + 1, unit, unit.move_property_);
+    }
+
+    private void RecursiveSearchAttack(int x, int y, Unit unit, int move_property){
+        int unit_type = unit.unit_type_;
+        GameObject temp = GetTile(x, y);
+        if(temp == null) return;
+        Tile tile = temp.GetComponent<Tile>();
+        int block_property = tile.GetBlockProperty(unit_type);
+        if(block_property == 0 || move_property < block_property || tile.unit_ != null) return;
+        move_property -= block_property;
+        unit.FindAttackRange(temp, false);
+        
+        RecursiveSearchAttack(x - 1, y, unit, move_property);
+        RecursiveSearchAttack(x, y - 1, unit, move_property);
+        RecursiveSearchAttack(x + 1, y, unit, move_property);
+        RecursiveSearchAttack(x, y + 1, unit, move_property); 
+    }
+
     public void SearchPath(Unit src, GameObject dist, List<GameObject> path_tiles_list){
         if(open_list_ == null) open_list_ = new List<GameObject>();
         if(close_list_ == null) close_list_ = new List<GameObject>();

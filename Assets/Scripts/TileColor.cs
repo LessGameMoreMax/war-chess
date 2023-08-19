@@ -8,6 +8,7 @@ public class TileColor : MonoBehaviour
     public Color normal_color_;
     public Color move_color_;
     public Color path_color_;
+    public Color attack_color_;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class TileColor : MonoBehaviour
         normal_color_ = material_.color;
         move_color_ = Color.white;
         path_color_ = Color.green;
+        attack_color_ = Color.red;
     }
 
     // Update is called once per frame
@@ -33,5 +35,9 @@ public class TileColor : MonoBehaviour
 
     public void ShowPathColor(){
         material_.color = path_color_;
+    }
+
+    public void ShowAttackColor(){
+        material_.color = attack_color_;
     }
 }

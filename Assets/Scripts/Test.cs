@@ -7,6 +7,8 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UIPool.CreateInstance();
+        UIPool.GetInstance().InitializeUIPool();
         TilePrefabPool.CreateInstance();
         TilePrefabPool.GetInstance().LoadTilePrefabInfoFromFile("tile");
         MapPool.CreateInstance();
