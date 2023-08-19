@@ -19,6 +19,7 @@ public abstract class Unit : MonoBehaviour
     public int[] attack_scope_property_;
     public int[] move_terrain_property_;
     public int unit_type_;
+    public int max_health_;
 
     //Load from map json or the fact task
     public int guid_;
@@ -30,16 +31,20 @@ public abstract class Unit : MonoBehaviour
     public Color active_color_;
     public Color bide_color_;
     public UnitStateEnum current_unit_state_;
+    public HealthUI health_ui_;
     
     //Use for move
     public HashSet<GameObject> move_tiles_set_;
     public List<GameObject> path_tiles_list_;
     private Tile restore_tile_;
     private Vector3 restore_position_;
+    private int restore_x_;
+    private int restore_y_;
 
     //Use for attack
     public HashSet<GameObject> attack_tiles_set_;
     public HashSet<GameObject> attack_real_tiles_set_;
+    public int health_;
 
 
     // Start is called before the first frame update
@@ -54,8 +59,12 @@ public abstract class Unit : MonoBehaviour
         
     }
 
-    public virtual bool CanAttack(int position_property){
-        return attack_position_property_[position_property] == 1;
+    public virtual bool CanAttack(Unit unit){
+        return attack_position_property_[unit.position_property_] == 1 && !IsFriend(unit);
+    }
+
+    public virtual bool IsFriend(Unit unit){
+        return Task.GetInstance().character_friend_set_dic_[character_id_].Contains(unit.character_id_);
     }
 
     public virtual bool CanMove(int terrain_property_){
@@ -71,9 +80,12 @@ public abstract class Unit : MonoBehaviour
             restore_position_.y,
             restore_position_.z
         );
-
+        x_ = restore_x_;
+        y_ = restore_y_;
         restore_tile_ = null;
         restore_position_ = new Vector3();
+        restore_x_ = 0;
+        restore_y_ = 0;
     }
 
     public virtual void SearchMove(){
@@ -146,6 +158,8 @@ public abstract class Unit : MonoBehaviour
             transform.position.y,
             transform.position.z
         );
+        restore_x_ = x_;
+        restore_y_ = y_;
         //...
 
         path_tiles_list_.RemoveAt(0);
@@ -200,6 +214,12 @@ public abstract class Unit : MonoBehaviour
         return true;
     }
 
+    public virtual bool HaveAttack(){
+        attack_real_tiles_set_.Clear();
+        FindAttackRange(tile_.gameObject, true);
+        return attack_real_tiles_set_.Count != 0;
+    }
+
     public virtual void ShowAttackRange(){
         Task.GetInstance().map_.SearchAttack(this);
         foreach(GameObject temp in attack_tiles_set_)
@@ -224,6 +244,10 @@ public abstract class Unit : MonoBehaviour
         attack_real_tiles_set_.Clear();
     }
 
+    public virtual bool HaveAttackUnit(Unit other){
+        return attack_real_tiles_set_.Contains(other.tile_.gameObject);
+    }
+
     public virtual void FindAttackRange(GameObject temp, bool is_add_to_real_set){
         int min_scope = attack_scope_property_[0];
         int max_scope = attack_scope_property_[1];
@@ -240,7 +264,7 @@ public abstract class Unit : MonoBehaviour
         if(is_add_to_real_set){
             foreach(GameObject obj in set){
                 Tile temp_tile = obj.GetComponent<Tile>();
-                if(!attack_real_tiles_set_.Contains(obj) && !black_set.Contains(obj) && temp_tile.unit_ != null && CanAttack(temp_tile.unit_.position_property_)) 
+                if(!attack_real_tiles_set_.Contains(obj) && !black_set.Contains(obj) && temp_tile.unit_ != null && CanAttack(temp_tile.unit_)) 
                     attack_real_tiles_set_.Add(obj);
             }
                 
@@ -269,6 +293,21 @@ public abstract class Unit : MonoBehaviour
         RecursiveFindAttackRange(x + 1, y, Mathf.Max(0, min_scope - 1), max_scope - 1, black_set, set);
         RecursiveFindAttackRange(x, y - 1, Mathf.Max(0, min_scope - 1), max_scope - 1, black_set, set);
         RecursiveFindAttackRange(x, y + 1, Mathf.Max(0, min_scope - 1), max_scope - 1, black_set, set);
+    }
+
+    public virtual void Attack(Unit unit){
+        unit.health_ui_.SetText(Mathf.Max(0, unit.health_));
+    }
+
+    public virtual void Die(){
+        tile_.unit_ = null;
+        Task.GetInstance().RemoveUnit(guid_, character_id_);
+        Destroy(health_ui_.gameObject, 0.5f);
+        Destroy(gameObject, 0.5f);
+    }
+
+    public virtual bool HasDead(){
+        return health_ <= 0;
     }
 
 

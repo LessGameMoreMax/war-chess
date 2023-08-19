@@ -15,4 +15,9 @@ public class UnitSolider : Unit
     {
         
     }
+
+    public override void Attack(Unit unit){
+        unit.health_ -= 60;
+        base.Attack(unit);
+    }
 }

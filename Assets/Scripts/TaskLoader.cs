@@ -8,6 +8,7 @@ public class UnitAndPlaceInfo{
     public int x_;
     public int y_;
     public int character_id_;
+    public int health_;
 }
 
 public class BuildAndPlaceInfo{
@@ -82,6 +83,8 @@ public class TaskLoader : Singleton<TaskLoader>
             unit.guid_ = guid++;
             unit.x_ = x;
             unit.y_ = y;
+            unit.health_ = task_info.unit_list_[i].health_;
+            UIPool.GetInstance().GetHealthUI(unit);
             unit.attack_tiles_set_ = new HashSet<GameObject>();
             unit.attack_real_tiles_set_ = new HashSet<GameObject>();
             Tile tile = task.map_.GetTile(x, y).GetComponent<Tile>();

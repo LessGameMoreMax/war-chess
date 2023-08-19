@@ -30,4 +30,9 @@ public class Task: Singleton<Task>
         Debug.Assert(id_character_dic_.ContainsKey(id), " Task.cs---id_character_dic_ not contain character: " + id);
         return id_character_dic_[id];
     }
+
+    public void RemoveUnit(int guid, int character_id){
+        Character character = GetCharacter(character_id);
+        character.RemoveUnit(guid);
+    }
 }

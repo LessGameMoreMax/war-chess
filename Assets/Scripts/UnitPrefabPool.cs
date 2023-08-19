@@ -16,6 +16,7 @@ public class UnitPrefabInfo{
     public int[] attack_scope_property_;
     public int[] move_terrain_property_;
     public int unit_type_;
+    public int max_health_;
 }
 
 public class UnitPrefabPool : Singleton<UnitPrefabPool>
@@ -60,6 +61,8 @@ public class UnitPrefabPool : Singleton<UnitPrefabPool>
         for(int i = 0;i != 6; ++i)
             unit.move_terrain_property_[i] = unit_prefab_info.move_terrain_property_[i];
         unit.unit_type_ = unit_prefab_info.unit_type_;
+        unit.max_health_ = unit_prefab_info.max_health_;
+        unit.health_ = unit_prefab_info.max_health_;
         unit.tile_ = null;
     }
 

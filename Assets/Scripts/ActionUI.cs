@@ -10,6 +10,7 @@ public class ActionUI : MonoBehaviour
     public bool is_show_;
     public Unit unit_;
     public Button bide_button_;
+    public Button attack_button_;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,11 @@ public class ActionUI : MonoBehaviour
         }else {
             bide_button_.interactable = false;
         }
+        if(unit.HaveAttack()){
+            attack_button_.interactable = true;
+        }else{
+            attack_button_.interactable = false;
+        }
     }
 
     public void Hide(){
@@ -49,5 +55,14 @@ public class ActionUI : MonoBehaviour
         select_unit.GetComponent<ContourColor>().CancleColor();
         SelectManager.GetInstance().select_gameObject_ = null;
         SelectManager.GetInstance().current_state_ = CurrentStateEnum.Idle;
+    }
+
+    public void attack_button_click_event(){
+        unit_.HideActionUI();
+        unit_.SearchRealAttackRange();
+        SelectManager.GetInstance().current_state_ = CurrentStateEnum.Attack;
+        SelectManager.GetInstance().current_gameObject_.GetComponent<ContourColor>().CancleColor();
+        SelectManager.GetInstance().current_gameObject_ = null;
+        
     }
 }

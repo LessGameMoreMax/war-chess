@@ -7,7 +7,8 @@ public enum CurrentStateEnum{
     Selected,
     Moving,
     Moved,
-    ShowAttackRange
+    ShowAttackRange,
+    Attack
 }
 
 public class SelectManager : MonoBehaviour
@@ -52,6 +53,10 @@ public class SelectManager : MonoBehaviour
             case CurrentStateEnum.ShowAttackRange:
                 MouseShowAttackRangeDetect();
                 MouseShowAttackRangeInput();
+                break;
+            case CurrentStateEnum.Attack:
+                MouseAttackDetect();
+                MouseAttackInput();
                 break;
             default:
                 break;
@@ -177,6 +182,54 @@ public class SelectManager : MonoBehaviour
                 current_state_ = CurrentStateEnum.Selected;
                 return;
             }
+        }
+    }
+
+    private void MouseAttackDetect(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        Ray mouse_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit_info;
+        if(Physics.Raycast(mouse_ray, out hit_info)){
+            GameObject temp_gameObject = hit_info.transform.gameObject;
+            Unit attack_unit = temp_gameObject.GetComponent<Unit>();
+            if(current_gameObject_ != null && current_gameObject_ != temp_gameObject){
+                current_gameObject_.GetComponent<ContourColor>().CancleColor();
+                current_gameObject_ = null;
+            }
+            if(attack_unit == null) return;
+            if(unit.HaveAttackUnit(attack_unit)){
+                current_gameObject_ = temp_gameObject;
+                current_gameObject_.GetComponent<ContourColor>().ShowPreSelectColor();
+            }
+            
+        }else if(current_gameObject_ != null){
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_ = null;
+        }
+    }
+
+    private void MouseAttackInput(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        if(Input.GetMouseButtonDown(1)){
+            if(unit != null){
+                unit.ShowActionUI();
+                unit.ClearRealAttackRange();
+                current_state_ = CurrentStateEnum.Moved;
+            }
+        }
+        if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
+            Unit enemy = current_gameObject_.GetComponent<Unit>();
+            unit.Attack(enemy);
+            if(!unit.HasDead() && !enemy.HasDead()) enemy.Attack(unit);
+            unit.ClearRealAttackRange();
+            select_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            if(unit.HasDead()) unit.Die();
+            else unit.SetBide();
+            if(enemy.HasDead()) enemy.Die();
+            select_gameObject_ = null;
+            current_gameObject_ = null;
+            current_state_ = CurrentStateEnum.Idle;
         }
     }
 }

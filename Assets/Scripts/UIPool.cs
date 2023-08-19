@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIPool : Singleton<UIPool>
 {
     public GameObject action_ui_;
+    public GameObject health_ui_prefab_;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,10 @@ public class UIPool : Singleton<UIPool>
         temp.offset_y_ = 1;
         temp.is_show_ = false;
         temp.bide_button_.onClick.AddListener(temp.bide_button_click_event);
+        temp.attack_button_.onClick.AddListener(temp.attack_button_click_event);
         action_ui_.SetActive(false);
+        //HealthUI
+        health_ui_prefab_ = Resources.Load<GameObject>("Prefab/HealthUI");
         //...
     }
 
@@ -36,6 +40,17 @@ public class UIPool : Singleton<UIPool>
 
     public void CollectActionUI(){
         action_ui_.SetActive(false);
+    }
+
+    public void GetHealthUI(Unit unit){
+        GameObject result = UIInstantiate.Generate(health_ui_prefab_);
+
+        HealthUI temp = result.GetComponent<HealthUI>();
+        temp.offset_x_ = 1;
+        temp.offset_y_ = 1;
+        temp.SetText(unit.health_);
+        temp.unit_ = unit;
+        unit.health_ui_ = temp;
     }
 }
 

@@ -27,6 +27,10 @@ public class Character
         unit_set_.Add(guid);
     }
 
+    public void RemoveUnit(int guid){
+        unit_set_.Remove(guid);
+    }
+
     public void AddBuilding(int guid){
         building_set_.Add(guid);
     }
@@ -34,4 +38,5 @@ public class Character
     public void RemoveBuilding(int guid){
         building_set_.Remove(guid);
     }
+
 }
