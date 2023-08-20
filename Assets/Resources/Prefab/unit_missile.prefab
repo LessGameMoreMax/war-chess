@@ -30,13 +30,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942913879937738635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5194087, y: 2.97, z: -1.5677549}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.5183, y: 2.9687, z: -1.584}
+  m_LocalScale: {x: 0.86742, y: 0.86742, z: 0.86742}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4399306922863764251}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7812891584635758957
 MeshFilter:
@@ -128,9 +128,21 @@ MonoBehaviour:
   move_property_: 4
   view_property_: 3
   attack_scope_property_: 0300000005000000
+  move_terrain_property_: 
+  unit_type_: 0
+  max_health_: 0
   guid_: 0
   x_: 0
   y_: 0
+  tile_: {fileID: 0}
+  character_id_: 0
+  material_: {fileID: 0}
+  active_color_: {r: 0, g: 0, b: 0, a: 0}
+  bide_color_: {r: 0, g: 0, b: 0, a: 0}
+  current_unit_state_: 0
+  health_ui_: {fileID: 0}
+  path_tiles_list_: []
+  health_: 0
 --- !u!114 &-5081608358618906534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4681955115609367988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.745, z: 0}
+  m_LocalPosition: {x: -0.017, y: -0.019, z: -0.245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -264,7 +276,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

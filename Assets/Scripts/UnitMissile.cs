@@ -15,4 +15,14 @@ public class UnitMissile : Unit
     {
         
     }
+
+    public override bool HaveAttack(){
+        return base.HaveAttack() && tile_ == restore_tile_;
+    }
+
+    public override void ShowAttackRange(){
+        FindAttackRange(tile_.gameObject, false);
+        foreach(GameObject temp in attack_tiles_set_)
+            temp.GetComponent<TileColor>().ShowAttackColor();
+    }
 }

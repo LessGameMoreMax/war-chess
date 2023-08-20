@@ -36,10 +36,10 @@ public abstract class Unit : MonoBehaviour
     //Use for move
     public HashSet<GameObject> move_tiles_set_;
     public List<GameObject> path_tiles_list_;
-    private Tile restore_tile_;
-    private Vector3 restore_position_;
-    private int restore_x_;
-    private int restore_y_;
+    protected Tile restore_tile_;
+    protected Vector3 restore_position_;
+    protected int restore_x_;
+    protected int restore_y_;
 
     //Use for attack
     public HashSet<GameObject> attack_tiles_set_;
@@ -69,6 +69,14 @@ public abstract class Unit : MonoBehaviour
 
     public virtual bool CanMove(int terrain_property_){
         return move_terrain_property_[terrain_property_] == 1;
+    }
+
+    public virtual bool CanLoad(Unit unit){
+        return false;
+    }
+
+    public virtual bool CanUnload(GameObject temp){
+        return false;
     }
 
     public virtual void Restore(){
@@ -220,6 +228,14 @@ public abstract class Unit : MonoBehaviour
         return attack_real_tiles_set_.Count != 0;
     }
 
+    public virtual bool HaveLoad(){
+        return false;
+    }
+
+    public virtual bool HaveUnload(){
+        return false;
+    }
+
     public virtual void ShowAttackRange(){
         Task.GetInstance().map_.SearchAttack(this);
         foreach(GameObject temp in attack_tiles_set_)
@@ -248,9 +264,14 @@ public abstract class Unit : MonoBehaviour
         return attack_real_tiles_set_.Contains(other.tile_.gameObject);
     }
 
+    public virtual bool HaveLoadUnit(Unit other){
+        return false;
+    }
+
     public virtual void FindAttackRange(GameObject temp, bool is_add_to_real_set){
         int min_scope = attack_scope_property_[0];
         int max_scope = attack_scope_property_[1];
+        if(max_scope == 0) return;
         Tile tile = temp.GetComponent<Tile>();
         int x = tile.x_;
         int y = tile.y_;
@@ -308,6 +329,28 @@ public abstract class Unit : MonoBehaviour
 
     public virtual bool HasDead(){
         return health_ <= 0;
+    }
+
+    public virtual bool SearchMoveCondition(Tile tile, HashSet<GameObject> move_tiles_set){
+        return tile.unit_ != null;
+    }
+
+    public virtual void Load(Unit unit){
+
+    }
+
+    public virtual void Hide(){
+        health_ui_.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    public virtual void CancelHide(){
+        health_ui_.gameObject.SetActive(true);
+        gameObject.SetActive(true);
+    }
+
+    public virtual void UnloadToTile(GameObject temp){
+
     }
 
 

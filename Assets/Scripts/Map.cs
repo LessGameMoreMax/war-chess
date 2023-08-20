@@ -38,28 +38,28 @@ public class Map{
         temp.GetComponent<TileColor>().ShowMoveColor();
         move_tiles_set.Add(temp);
 
-        RecursiveSearchMove(unit.x_ - 1, unit.y_, unit.unit_type_, unit.move_property_, move_tiles_set);
-        RecursiveSearchMove(unit.x_, unit.y_ - 1, unit.unit_type_, unit.move_property_, move_tiles_set);
-        RecursiveSearchMove(unit.x_ + 1, unit.y_, unit.unit_type_, unit.move_property_, move_tiles_set);
-        RecursiveSearchMove(unit.x_, unit.y_ + 1, unit.unit_type_, unit.move_property_, move_tiles_set);
+        RecursiveSearchMove(unit.x_ - 1, unit.y_, unit, unit.move_property_, move_tiles_set);
+        RecursiveSearchMove(unit.x_, unit.y_ - 1, unit, unit.move_property_, move_tiles_set);
+        RecursiveSearchMove(unit.x_ + 1, unit.y_, unit, unit.move_property_, move_tiles_set);
+        RecursiveSearchMove(unit.x_, unit.y_ + 1, unit, unit.move_property_, move_tiles_set);
     }
 
-    private void RecursiveSearchMove(int x, int y, int unit_type, int move_property, HashSet<GameObject> move_tiles_set){
+    private void RecursiveSearchMove(int x, int y, Unit unit, int move_property, HashSet<GameObject> move_tiles_set){
         GameObject temp = GetTile(x, y);
         if(temp == null) return;
         Tile tile = temp.GetComponent<Tile>();
-        int block_property = tile.GetBlockProperty(unit_type);
-        if(block_property == 0 || move_property < block_property || tile.unit_ != null) return;
+        int block_property = tile.GetBlockProperty(unit.unit_type_);
+        if(block_property == 0 || move_property < block_property || unit.SearchMoveCondition(tile, move_tiles_set)) return;
         move_property -= block_property;
         if(!move_tiles_set.Contains(temp)){
             temp.GetComponent<TileColor>().ShowMoveColor();
             move_tiles_set.Add(temp);
         }
         
-        RecursiveSearchMove(x - 1, y, unit_type, move_property, move_tiles_set);
-        RecursiveSearchMove(x, y - 1, unit_type, move_property, move_tiles_set);
-        RecursiveSearchMove(x + 1, y, unit_type, move_property, move_tiles_set);
-        RecursiveSearchMove(x, y + 1, unit_type, move_property, move_tiles_set);
+        RecursiveSearchMove(x - 1, y, unit, move_property, move_tiles_set);
+        RecursiveSearchMove(x, y - 1, unit, move_property, move_tiles_set);
+        RecursiveSearchMove(x + 1, y, unit, move_property, move_tiles_set);
+        RecursiveSearchMove(x, y + 1, unit, move_property, move_tiles_set);
     }
 
     public void SearchAttack(Unit unit){

@@ -11,6 +11,8 @@ public class ActionUI : MonoBehaviour
     public Unit unit_;
     public Button bide_button_;
     public Button attack_button_;
+    public Button load_button_;
+    public Button unload_button_;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,16 @@ public class ActionUI : MonoBehaviour
         }else{
             attack_button_.interactable = false;
         }
+        if(unit.HaveLoad()){
+            load_button_.interactable = true;
+        }else{
+            load_button_.interactable = false;
+        }
+        if(unit.HaveUnload()){
+            unload_button_.interactable = true;
+        }else{
+            unload_button_.interactable = false;
+        }
     }
 
     public void Hide(){
@@ -64,5 +76,15 @@ public class ActionUI : MonoBehaviour
         SelectManager.GetInstance().current_gameObject_.GetComponent<ContourColor>().CancleColor();
         SelectManager.GetInstance().current_gameObject_ = null;
         
+    }
+
+    public void load_button_click_event(){
+        unit_.HideActionUI();
+        SelectManager.GetInstance().current_state_ = CurrentStateEnum.Load;
+    }
+
+    public void unload_button_click_event(){
+        unit_.HideActionUI();
+        SelectManager.GetInstance().current_state_ = CurrentStateEnum.Unload;
     }
 }

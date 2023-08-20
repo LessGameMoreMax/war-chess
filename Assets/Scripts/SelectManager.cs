@@ -8,7 +8,9 @@ public enum CurrentStateEnum{
     Moving,
     Moved,
     ShowAttackRange,
-    Attack
+    Attack,
+    Load,
+    Unload
 }
 
 public class SelectManager : MonoBehaviour
@@ -57,6 +59,14 @@ public class SelectManager : MonoBehaviour
             case CurrentStateEnum.Attack:
                 MouseAttackDetect();
                 MouseAttackInput();
+                break;
+            case CurrentStateEnum.Load:
+                MouseLoadDetect();
+                MouseLoadInput();
+                break;
+            case CurrentStateEnum.Unload:
+                MouseUnloadDetect();
+                MouseUnloadInput();
                 break;
             default:
                 break;
@@ -227,6 +237,88 @@ public class SelectManager : MonoBehaviour
             if(unit.HasDead()) unit.Die();
             else unit.SetBide();
             if(enemy.HasDead()) enemy.Die();
+            select_gameObject_ = null;
+            current_gameObject_ = null;
+            current_state_ = CurrentStateEnum.Idle;
+        }
+    }
+
+    private void MouseLoadDetect(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        Ray mouse_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit_info;
+        if(Physics.Raycast(mouse_ray, out hit_info)){
+            GameObject temp_gameObject = hit_info.transform.gameObject;
+            Unit load_unit = temp_gameObject.GetComponent<Unit>();
+            if(current_gameObject_ != null && current_gameObject_ != temp_gameObject){
+                current_gameObject_.GetComponent<ContourColor>().CancleColor();
+                current_gameObject_ = null;
+            }
+            if(load_unit == null) return;
+            if(unit.HaveLoadUnit(load_unit)){
+                current_gameObject_ = temp_gameObject;
+                current_gameObject_.GetComponent<ContourColor>().ShowPreSelectColor();
+            }
+        }else if(current_gameObject_ != null){
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_ = null;
+        }
+    }
+
+    private void MouseLoadInput(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        if(Input.GetMouseButtonDown(1)){
+            if(unit != null){
+                unit.ShowActionUI();
+                current_state_ = CurrentStateEnum.Moved;
+            }
+        }
+        if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
+            select_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            Unit loader = current_gameObject_.GetComponent<Unit>();
+            loader.Load(unit);
+            select_gameObject_ = null;
+            current_gameObject_ = null;
+            current_state_ = CurrentStateEnum.Idle;
+        }
+    }
+
+    private void MouseUnloadDetect(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        Ray mouse_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit_info;
+        if(Physics.Raycast(mouse_ray, out hit_info)){
+            GameObject temp_gameObject = hit_info.transform.gameObject;
+            Tile tile = temp_gameObject.GetComponent<Tile>();
+            if(current_gameObject_ != null && current_gameObject_ != temp_gameObject){
+                current_gameObject_.GetComponent<ContourColor>().CancleColor();
+                current_gameObject_ = null;
+            }
+            if(tile == null) return;
+            if(unit.CanUnload(temp_gameObject)){
+                current_gameObject_ = temp_gameObject;
+                current_gameObject_.GetComponent<ContourColor>().ShowPreSelectColor();
+            }
+        }else if(current_gameObject_ != null){
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_ = null;
+        }
+    }
+
+    private void MouseUnloadInput(){
+        Unit unit = select_gameObject_.GetComponent<Unit>();
+        if(Input.GetMouseButtonDown(1)){
+            if(unit != null){
+                unit.ShowActionUI();
+                current_state_ = CurrentStateEnum.Moved;
+            }
+        }
+        if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
+            select_gameObject_.GetComponent<ContourColor>().CancleColor();
+            current_gameObject_.GetComponent<ContourColor>().CancleColor();
+            unit.UnloadToTile(current_gameObject_);
+            unit.SetBide();
             select_gameObject_ = null;
             current_gameObject_ = null;
             current_state_ = CurrentStateEnum.Idle;
