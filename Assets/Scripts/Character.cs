@@ -78,4 +78,9 @@ public class Character
 
     }
 
+    public void SubtractCash(int cash){
+        cash_ -= cash;
+        Task.GetInstance().turn_ui_.SetMessageText(name_, cash_);
+    }
+
 }

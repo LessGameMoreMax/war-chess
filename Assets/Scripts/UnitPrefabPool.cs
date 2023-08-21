@@ -16,6 +16,7 @@ public class UnitPrefabInfo{
     public int[] attack_scope_property_;
     public int unit_type_;
     public int max_health_;
+    public int cash_;
 }
 
 public class UnitPrefabPool : Singleton<UnitPrefabPool>
@@ -59,6 +60,7 @@ public class UnitPrefabPool : Singleton<UnitPrefabPool>
         unit.unit_type_ = unit_prefab_info.unit_type_;
         unit.max_health_ = unit_prefab_info.max_health_;
         unit.health_ = unit_prefab_info.max_health_;
+        unit.cash_ = unit_prefab_info.cash_;
         unit.tile_ = null;
     }
 

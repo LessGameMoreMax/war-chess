@@ -14,6 +14,10 @@ public class ContourColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Initialize();
+    }
+
+    public void Initialize(){
         outline_ = GetComponent<Outline>(); 
         outline_.enabled = false;
         preselect_color_ = Color.white;

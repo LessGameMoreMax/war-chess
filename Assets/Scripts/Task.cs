@@ -13,8 +13,9 @@ public class Task: Singleton<Task>
     public Dictionary<int, HashSet<int>> character_friend_set_dic_;
     public HashSet<int> player_character_set_;
     public HashSet<Building> neutral_building_set_;
-
     public TurnUI turn_ui_;
+
+    public int unit_guid_;
 
     // Start is called before the first frame update
     void Start()

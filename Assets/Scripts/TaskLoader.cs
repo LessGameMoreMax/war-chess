@@ -94,6 +94,7 @@ public class TaskLoader : Singleton<TaskLoader>
             unit.InitializeCharacter(character_id);
             unit.SetActive();
         }
+        task.unit_guid_ = guid;
         task.neutral_building_set_ = new HashSet<Building>();
         guid = 0;
         for(int i = 0;i != task_info.build_list_.Count; ++i){

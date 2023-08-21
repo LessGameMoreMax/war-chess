@@ -6,6 +6,7 @@ public class UIPool : Singleton<UIPool>
 {
     public GameObject action_ui_;
     public GameObject health_ui_prefab_;
+    public GameObject factory_ui_;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,18 @@ public class UIPool : Singleton<UIPool>
         action_ui_.SetActive(false);
         //HealthUI
         health_ui_prefab_ = Resources.Load<GameObject>("Prefab/HealthUI");
+        //FactoryUI
+        factory_ui_ = UIInstantiate.Generate(Resources.Load<GameObject>("Prefab/FactoryUI"));
+        FactoryUI temp1 = factory_ui_.GetComponent<FactoryUI>();  
+        temp1.offset_x_ = 0;
+        temp1.offset_y_ = 2;
+        temp1.is_show_ = false;
+        temp1.solider_button_.onClick.AddListener(temp1.solider_button_click_event);
+        temp1.troop_button_.onClick.AddListener(temp1.troop_button_click_event);
+        temp1.missile_button_.onClick.AddListener(temp1.missile_button_click_event);
+        temp1.helicopter_button_.onClick.AddListener(temp1.helicopter_button_click_event);
+        temp1.tank_button_.onClick.AddListener(temp1.tank_button_click_event);
+        factory_ui_.SetActive(false);
         //...
     }
 
@@ -43,6 +56,15 @@ public class UIPool : Singleton<UIPool>
 
     public void CollectActionUI(){
         action_ui_.SetActive(false);
+    }
+
+    public GameObject GetFactoryUI(){
+        factory_ui_.SetActive(true);
+        return factory_ui_;
+    }
+
+    public void CollectFactoryUI(){
+        factory_ui_.SetActive(false);
     }
 
     public void GetHealthUI(Unit unit){

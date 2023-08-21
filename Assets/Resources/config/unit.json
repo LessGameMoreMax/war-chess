@@ -12,7 +12,8 @@
         "view_property_" : 4,
         "attack_scope_property_" : [1,1],
         "unit_type_" : 0,
-        "max_health_" : 100
+        "max_health_" : 100,
+        "cash_" : 800
     },
     {
         "id_" : 1,
@@ -27,7 +28,8 @@
         "view_property_" : 4,
         "attack_scope_property_" : [0,0],
         "unit_type_" : 1,
-        "max_health_" : 100
+        "max_health_" : 100,
+        "cash_" : 1000
     },
     {
         "id_" : 2,
@@ -42,7 +44,8 @@
         "view_property_" : 3,
         "attack_scope_property_" : [3,5],
         "unit_type_" : 1,
-        "max_health_" : 100
+        "max_health_" : 100,
+        "cash_" : 3000
     },
     {
         "id_" : 3,
@@ -57,6 +60,23 @@
         "view_property_" : 5,
         "attack_scope_property_" : [1,1],
         "unit_type_" : 2,
-        "max_health_" : 100
+        "max_health_" : 100,
+        "cash_" : 4000
+    },
+    {
+        "id_" : 4,
+        "name_" : "Tank",
+        "prefab_name_" : "unit_tank",
+        "script_name_" : "UnitTank",
+        "position_property_" : 2,
+        "attack_position_property_" : [
+            0,1,1,1,0
+        ],
+        "move_property_" : 5,
+        "view_property_" : 3,
+        "attack_scope_property_" : [1,1],
+        "unit_type_" : 1,
+        "max_health_" : 100,
+        "cash_" : 2500
     }
 ]

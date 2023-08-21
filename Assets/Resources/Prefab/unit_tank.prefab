@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2654443887959982557}
   - component: {fileID: -8998931092113882726}
   - component: {fileID: 4192923464527253733}
+  - component: {fileID: 1382204772713721731}
   m_Layer: 0
   m_Name: unit_tank
   m_TagString: Untagged
@@ -141,3 +142,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preselect_color_: {r: 0, g: 0, b: 0, a: 0}
   selected_color_: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &1382204772713721731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440039075530319897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d43d54c5dc5e24ebd38b753f2dde51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id_: 4
+  name_: Tank
+  position_property_: 2
+  attack_position_property_: 0000000001000000010000000100000000000000
+  move_property_: 5
+  view_property_: 3
+  attack_scope_property_: 0100000001000000
+  unit_type_: 1
+  max_health_: 100
+  cash_: 2500
+  guid_: 0
+  x_: 0
+  y_: 0
+  tile_: {fileID: 0}
+  character_id_: 0
+  material_: {fileID: 0}
+  active_color_: {r: 0, g: 0, b: 0, a: 0}
+  bide_color_: {r: 0, g: 0, b: 0, a: 0}
+  current_unit_state_: 0
+  health_ui_: {fileID: 0}
+  path_tiles_list_: []
+  health_: 100

@@ -17,9 +17,9 @@ public abstract class Unit : MonoBehaviour
     public int move_property_;
     public int view_property_;
     public int[] attack_scope_property_;
-    // public int[] move_terrain_property_;
     public int unit_type_;
     public int max_health_;
+    public int cash_;
 
     //Load from map json or the fact task
     public int guid_;

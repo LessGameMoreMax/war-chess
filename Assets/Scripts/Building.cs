@@ -85,4 +85,45 @@ public class Building : Tile
     public virtual int GetCash(){
         return cash_;
     }
+
+    public virtual void ShowFactoryUI(){
+        GameObject temp = UIPool.GetInstance().GetFactoryUI();
+        temp.GetComponent<FactoryUI>().Show(this);
+    }
+
+    public virtual void HideFactoryUI(){
+        GameObject temp = UIPool.GetInstance().GetFactoryUI();
+        temp.GetComponent<FactoryUI>().Hide();
+        UIPool.GetInstance().CollectFactoryUI();
+    }
+
+    public virtual bool IsFactory(){
+        return false;
+    }
+
+    public virtual bool IsCurrentCharacter(){
+        return character_id_ == Task.GetInstance().CurrentCharacterId();
+    }
+
+    public virtual Unit CreateUnit(int id){
+        GameObject unit_prefab = UnitPrefabPool.GetInstance().GetUnitPrefab(id);
+        int x = x_;
+        int y = y_;
+        GameObject unit_prefab_copy = Instantiate(unit_prefab, new Vector3(transform.position.x,
+            transform.position.y + 1.0f, transform.position.z), new Quaternion());
+        Unit unit = unit_prefab_copy.GetComponent<Unit>();
+        unit.guid_ = Task.GetInstance().unit_guid_++;
+        unit.x_ = x;
+        unit.y_ = y;
+        unit.health_ = unit.max_health_;
+        UIPool.GetInstance().GetHealthUI(unit);
+        unit.attack_tiles_set_ = new HashSet<GameObject>();
+        unit.attack_real_tiles_set_ = new HashSet<GameObject>();
+        // Tile tile = task.map_.GetTile(x, y).GetComponent<Tile>();
+        unit.tile_ = this;
+        unit_ = unit;
+        unit.InitializeCharacter(character_id_);
+        unit.gameObject.GetComponent<ContourColor>().Initialize();
+        return unit;
+    }
 }

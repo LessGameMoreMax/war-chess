@@ -10,7 +10,8 @@ public enum CurrentStateEnum{
     ShowAttackRange,
     Attack,
     Load,
-    Unload
+    Unload,
+    Factory
 }
 
 public class SelectManager : MonoBehaviour
@@ -68,6 +69,10 @@ public class SelectManager : MonoBehaviour
                 MouseUnloadDetect();
                 MouseUnloadInput();
                 break;
+            case CurrentStateEnum.Factory:
+                MouseFactoryDetect();
+                MouseFactoryInput();
+                break;
             default:
                 break;
         }
@@ -98,6 +103,16 @@ public class SelectManager : MonoBehaviour
                 current_gameObject_.GetComponent<ContourColor>().ShowSelectColor();
                 select_gameObject_ = current_gameObject_;
                 current_state_ = CurrentStateEnum.Selected;
+            }
+
+            Building building = current_gameObject_.GetComponent<Building>();
+            if(building != null){
+                if(building.IsFactory() && building.IsCurrentCharacter() && building.unit_ == null){
+                    building.ShowFactoryUI();
+                    current_gameObject_.GetComponent<ContourColor>().ShowSelectColor();
+                    select_gameObject_ = current_gameObject_;
+                    current_state_ = CurrentStateEnum.Factory;
+                }
             }
         }
     }
@@ -322,6 +337,24 @@ public class SelectManager : MonoBehaviour
             select_gameObject_ = null;
             current_gameObject_ = null;
             current_state_ = CurrentStateEnum.Idle;
+        }
+    }
+
+    private void MouseFactoryDetect(){
+
+    }
+
+    private void MouseFactoryInput(){
+        Building building = select_gameObject_.GetComponent<Building>();   
+        if(Input.GetMouseButtonDown(1)){
+            if(building != null){
+                building.HideFactoryUI();
+                select_gameObject_.GetComponent<ContourColor>().CancleColor();
+                current_gameObject_.GetComponent<ContourColor>().CancleColor();
+                select_gameObject_ = null;
+                current_gameObject_ = null;
+                current_state_ = CurrentStateEnum.Idle;
+            }
         }
     }
 }
