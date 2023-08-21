@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitSolider : Unit
 {
     HashSet<GameObject> troop_tiles_;
+    Building is_occupied_building_;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,4 +58,49 @@ public class UnitSolider : Unit
     public override bool HaveLoadUnit(Unit other){
         return troop_tiles_.Contains(other.tile_.gameObject);
     }
+
+    public override bool IsOccupiedState(){
+        return is_occupied_building_ != null;
+    }
+
+    public override bool HaveOccupy(){
+        Building building = tile_.GetComponent<Building>();
+        return building != null && !IsFriendBuilding(building);
+    }
+
+    public override void Occupy(){
+        Building building = tile_.gameObject.GetComponent<Building>();
+        is_occupied_building_ = building;
+        building.SubtractHealth(health_);
+        if(building.HasDead()){
+            building.DeleteFromCharacter();
+            building.AttachToCharacter(character_id_);
+            building.SetMaxHealth();
+            is_occupied_building_ = null;
+        }
+    }
+
+    public override void CancleOccupy(){
+        if(is_occupied_building_ == null) return;
+        is_occupied_building_.SetMaxHealth();
+        is_occupied_building_ = null;
+    }
+
+    public override void Hide(){
+        CancleOccupy();
+        base.Hide();
+    }
+
+    public override void Die(){
+        CancleOccupy();
+        base.Die();
+    }
+
+    public override void SetBide(){
+        if(is_occupied_building_ != null && tile_.gameObject != is_occupied_building_.gameObject)
+            CancleOccupy();
+        base.SetBide();
+    }
+
+
 }

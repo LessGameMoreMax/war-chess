@@ -15,6 +15,7 @@ public class BuildAndPlaceInfo{
     public int x_;
     public int y_;
     public int character_id_;
+    public int health_;
 }
 
 public class TaskInfo{
@@ -48,7 +49,7 @@ public class TaskLoader : Singleton<TaskLoader>
         task.id_ = task_info.id_;
         task.name_ = task_info.name_;
         task.map_ = MapPool.GetInstance().GetMap(task_info.map_id_);
-        task.id_character_dic_ = new SortedDictionary<int, Character>();
+        task.id_character_dic_ = new Dictionary<int, Character>();
         task.character_friend_set_dic_ = new Dictionary<int, HashSet<int>>();
         for(int i = 0;i != task_info.power_.Count; ++i){
             List<int> character_list = task_info.power_[i];
@@ -65,7 +66,7 @@ public class TaskLoader : Singleton<TaskLoader>
         foreach(int character_id in task.id_character_dic_.Keys){
             task.character_id_list_.Add(character_id);
         }
-        task.current_character_ = task.character_id_list_[0];
+        task.current_character_index_ = 0;
         int count = 0;
         foreach(Character character in task.id_character_dic_.Values){
             character.money_ = task_info.power_initial_money_[count++];
@@ -94,13 +95,14 @@ public class TaskLoader : Singleton<TaskLoader>
             unit.InitializeCharacter(character_id);
             unit.SetActive();
         }
-        task.neutral_building_set_ = new HashSet<int>();
+        task.neutral_building_set_ = new HashSet<Building>();
         guid = 0;
         for(int i = 0;i != task_info.build_list_.Count; ++i){
             BuildAndPlaceInfo build_and_place_info = task_info.build_list_[i];
             GameObject tile = task.map_.GetTile(build_and_place_info.x_, build_and_place_info.y_);
             Building building = tile.GetComponent<Building>();
             Debug.Assert(building != null, "TaskLoader.cs---building load error");
+            building.max_health_ = task_info.build_list_[i].health_;
             building.InitializeBuilding();
             building.AttachToCharacter(build_and_place_info.character_id_);
         }

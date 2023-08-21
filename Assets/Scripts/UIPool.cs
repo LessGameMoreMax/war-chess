@@ -29,6 +29,7 @@ public class UIPool : Singleton<UIPool>
         temp.attack_button_.onClick.AddListener(temp.attack_button_click_event);
         temp.load_button_.onClick.AddListener(temp.load_button_click_event);
         temp.unload_button_.onClick.AddListener(temp.unload_button_click_event);
+        temp.occupy_button_.onClick.AddListener(temp.occupy_button_click_event);
         action_ui_.SetActive(false);
         //HealthUI
         health_ui_prefab_ = Resources.Load<GameObject>("Prefab/HealthUI");

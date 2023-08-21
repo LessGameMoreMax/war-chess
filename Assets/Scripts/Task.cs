@@ -7,12 +7,12 @@ public class Task: Singleton<Task>
     public int id_;
     public string name_;
     public Map map_;
-    public SortedDictionary<int, Character> id_character_dic_;
+    public Dictionary<int, Character> id_character_dic_;
     public List<int> character_id_list_;
-    public int current_character_;
+    public int current_character_index_;
     public Dictionary<int, HashSet<int>> character_friend_set_dic_;
     public HashSet<int> player_character_set_;
-    public HashSet<int> neutral_building_set_;
+    public HashSet<Building> neutral_building_set_;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +31,25 @@ public class Task: Singleton<Task>
         return id_character_dic_[id];
     }
 
-    public void RemoveUnit(int guid, int character_id){
+    public void RemoveUnit(Unit unit, int character_id){
         Character character = GetCharacter(character_id);
-        character.RemoveUnit(guid);
+        character.RemoveUnit(unit);
+    }
+
+    public void NextTurn(){
+        if(SelectManager.GetInstance().current_state_ != CurrentStateEnum.Idle) return;
+        Character current_character = GetCurrentCharacter();
+        current_character.FinishTurn();
+        current_character_index_ = (current_character_index_ + 1) % character_id_list_.Count;
+        current_character = GetCurrentCharacter();
+        current_character.InitializeTurn();
+    }
+
+    public int CurrentCharacterId(){
+        return character_id_list_[current_character_index_];
+    }
+
+    public Character GetCurrentCharacter(){
+        return id_character_dic_[CurrentCharacterId()];
     }
 }

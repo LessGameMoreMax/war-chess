@@ -82,42 +82,50 @@
             {
                 "x_" : 2,
                 "y_" : 1,
-                "character_id_" : 0
+                "character_id_" : 0,
+                "health_" : 200
             },
             {
                 "x_" : 3,
                 "y_" : 2,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 4,
                 "y_" : 3,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 7,
                 "y_" : 2,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 7,
                 "y_" : 5,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 4,
                 "y_" : 6,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 8,
                 "y_" : 9,
-                "character_id_" : -1
+                "character_id_" : -1,
+                "health_" : 200
             },
             {
                 "x_" : 10,
                 "y_" : 8,
-                "character_id_" : 1
+                "character_id_" : 1,
+                "health_" : 200
             }
         ]
     }

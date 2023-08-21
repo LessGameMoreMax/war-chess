@@ -67,6 +67,10 @@ public abstract class Unit : MonoBehaviour
         return Task.GetInstance().character_friend_set_dic_[character_id_].Contains(unit.character_id_);
     }
 
+    public virtual bool IsFriendBuilding(Building building){
+        return Task.GetInstance().character_friend_set_dic_[character_id_].Contains(building.character_id_);
+    }
+
     public virtual bool CanMove(int terrain_property_){
         return move_terrain_property_[terrain_property_] == 1;
     }
@@ -183,7 +187,7 @@ public abstract class Unit : MonoBehaviour
     public virtual void InitializeCharacter(int character_id){
         character_id_ = character_id;
         Character character = Task.GetInstance().GetCharacter(character_id_);
-        character.AddUnit(guid_);
+        character.AddUnit(this);
         material_ = GetComponent<MeshRenderer>().material;
         active_color_ = character.faction_.color_;
         bide_color_ = Color.black;
@@ -233,6 +237,10 @@ public abstract class Unit : MonoBehaviour
     }
 
     public virtual bool HaveUnload(){
+        return false;
+    }
+
+    public virtual bool HaveOccupy(){
         return false;
     }
 
@@ -322,7 +330,7 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Die(){
         tile_.unit_ = null;
-        Task.GetInstance().RemoveUnit(guid_, character_id_);
+        Task.GetInstance().RemoveUnit(this, character_id_);
         Destroy(health_ui_.gameObject, 0.5f);
         Destroy(gameObject, 0.5f);
     }
@@ -350,6 +358,25 @@ public abstract class Unit : MonoBehaviour
     }
 
     public virtual void UnloadToTile(GameObject temp){
+
+    }
+
+    public virtual void InitializeTurn(){
+        SetActive();
+    }
+
+    public virtual void FinishTurn(){
+        SetActive();
+    }
+
+    public virtual bool IsOccupiedState(){
+        return false;
+    }
+
+    public virtual void Occupy(){
+    }
+
+    public virtual void CancleOccupy(){
 
     }
 

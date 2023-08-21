@@ -25,8 +25,8 @@ public class CharacterLoader : Singleton<CharacterLoader>
         character.id_ = character_info.id_;
         character.name_ = character_info.name_;
         character.faction_ = FactionLoader.GetInstance().GetFaction(character_info.faction_id_);
-        character.unit_set_ = new HashSet<int>();
-        character.building_set_ = new HashSet<int>();
+        character.unit_set_ = new HashSet<Unit>();
+        character.building_set_ = new HashSet<Building>();
         return character;
     }
 }

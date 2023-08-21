@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//可以成为拥有各种不同特性或技能的角色基类
 public class Character
 {
     public int id_;
     public string name_;
     public Faction faction_;
     public int money_;
-    public HashSet<int> unit_set_;
-    public HashSet<int> building_set_;
+    public HashSet<Unit> unit_set_;
+    public HashSet<Building> building_set_;
     
     // Start is called before the first frame update
     void Start()
@@ -23,20 +24,50 @@ public class Character
         
     }
 
-    public void AddUnit(int guid){
-        unit_set_.Add(guid);
+    public void AddUnit(Unit unit){
+        unit_set_.Add(unit);
     }
 
-    public void RemoveUnit(int guid){
-        unit_set_.Remove(guid);
+    public void RemoveUnit(Unit unit){
+        unit_set_.Remove(unit);
     }
 
-    public void AddBuilding(int guid){
-        building_set_.Add(guid);
+    public void AddBuilding(Building building){
+        building_set_.Add(building);
     }
 
-    public void RemoveBuilding(int guid){
-        building_set_.Remove(guid);
+    public void RemoveBuilding(Building building){
+        building_set_.Remove(building);
+    }
+
+    public virtual void InitializeTurn(){
+        InitializeUnit();
+        InitializeBuilding();
+    }
+
+    protected virtual void InitializeUnit(){
+        foreach(Unit unit in unit_set_){
+            unit.InitializeTurn();
+        }
+    }
+
+    protected virtual void InitializeBuilding(){
+
+    }
+
+    public virtual void FinishTurn(){
+        FinishUnit();
+        FinishBuilding();
+    }
+
+    protected virtual void FinishUnit(){
+        foreach(Unit unit in unit_set_){
+            unit.FinishTurn();
+        }
+    }
+
+    protected virtual void FinishBuilding(){
+
     }
 
 }

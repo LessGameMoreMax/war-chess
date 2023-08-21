@@ -30,7 +30,7 @@ public class UnitTroopCarriter : Unit
 
     public override void Die(){
         if(carried_unit_ != null){
-            Task.GetInstance().RemoveUnit(carried_unit_.guid_, carried_unit_.character_id_);
+            Task.GetInstance().RemoveUnit(carried_unit_, carried_unit_.character_id_);
             Destroy(carried_unit_.health_ui_.gameObject);
             Destroy(carried_unit_.gameObject);
         }

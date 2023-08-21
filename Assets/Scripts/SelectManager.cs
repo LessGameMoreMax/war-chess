@@ -138,7 +138,7 @@ public class SelectManager : MonoBehaviour
             current_state_ = CurrentStateEnum.Idle;
         }
         if(Input.GetMouseButtonDown(0) && current_gameObject_ != null){
-            if(unit.HavePath(current_gameObject_) && Task.GetInstance().current_character_ == unit.character_id_  && unit.IsActive()){
+            if(unit.HavePath(current_gameObject_) && Task.GetInstance().CurrentCharacterId() == unit.character_id_  && unit.IsActive()){
                 current_state_ = CurrentStateEnum.Moving;
                 unit.MoveTo();
                 return;

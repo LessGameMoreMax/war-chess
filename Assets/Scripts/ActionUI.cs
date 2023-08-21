@@ -13,6 +13,7 @@ public class ActionUI : MonoBehaviour
     public Button attack_button_;
     public Button load_button_;
     public Button unload_button_;
+    public Button occupy_button_;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +55,11 @@ public class ActionUI : MonoBehaviour
         }else{
             unload_button_.interactable = false;
         }
+        if(unit.HaveOccupy()){
+            occupy_button_.interactable = true;
+        }else{
+            occupy_button_.interactable = false;
+        }
     }
 
     public void Hide(){
@@ -86,5 +92,12 @@ public class ActionUI : MonoBehaviour
     public void unload_button_click_event(){
         unit_.HideActionUI();
         SelectManager.GetInstance().current_state_ = CurrentStateEnum.Unload;
+    }
+
+    public void occupy_button_click_event(){
+        unit_.HideActionUI();
+        unit_.Occupy();
+        unit_.SetBide();
+        SelectManager.GetInstance().current_state_ = CurrentStateEnum.Idle;
     }
 }

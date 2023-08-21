@@ -40,4 +40,8 @@ public class TileColor : MonoBehaviour
     public void ShowAttackColor(){
         material_.color = attack_color_;
     }
+
+    public void ChangeNormalColor(Color color){
+        normal_color_ = color;
+    }
 }
