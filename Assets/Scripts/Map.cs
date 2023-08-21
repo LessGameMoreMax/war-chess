@@ -49,7 +49,7 @@ public class Map{
         if(temp == null) return;
         Tile tile = temp.GetComponent<Tile>();
         int block_property = tile.GetBlockProperty(unit.unit_type_);
-        if(block_property == 0 || move_property < block_property || unit.SearchMoveCondition(tile, move_tiles_set)) return;
+        if(block_property == 0 || move_property < block_property || unit.SearchMoveCondition(tile)) return;
         move_property -= block_property;
         if(!move_tiles_set.Contains(temp)){
             temp.GetComponent<TileColor>().ShowMoveColor();
@@ -79,9 +79,9 @@ public class Map{
         if(temp == null) return;
         Tile tile = temp.GetComponent<Tile>();
         int block_property = tile.GetBlockProperty(unit_type);
-        if(block_property == 0 || move_property < block_property || tile.unit_ != null) return;
+        if(block_property == 0 || move_property < block_property || unit.SearchMoveCondition(tile)) return;
         move_property -= block_property;
-        unit.FindAttackRange(temp, false);
+        if(tile.unit_ == null) unit.FindAttackRange(temp, false);
         
         RecursiveSearchAttack(x - 1, y, unit, move_property);
         RecursiveSearchAttack(x, y - 1, unit, move_property);
@@ -117,7 +117,7 @@ public class Map{
                 List<GameObject> neighbours = FindNeighbours(temp);
                 for (int i = 0;i != neighbours.Count; ++i){
                     GameObject n = neighbours[i];
-                    if (close_list_.Contains(n) || !unit.HavePath(n))
+                    if (close_list_.Contains(n))
                         continue;
                     Tile temp_tile = temp.GetComponent<Tile>();
                     Tile n_tile = n.GetComponent<Tile>();

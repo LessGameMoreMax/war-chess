@@ -14,6 +14,8 @@ public class Task: Singleton<Task>
     public HashSet<int> player_character_set_;
     public HashSet<Building> neutral_building_set_;
 
+    public TurnUI turn_ui_;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +43,7 @@ public class Task: Singleton<Task>
         Character current_character = GetCurrentCharacter();
         current_character.FinishTurn();
         current_character_index_ = (current_character_index_ + 1) % character_id_list_.Count;
-        current_character = GetCurrentCharacter();
-        current_character.InitializeTurn();
+        Initialize();
     }
 
     public int CurrentCharacterId(){
@@ -51,5 +52,18 @@ public class Task: Singleton<Task>
 
     public Character GetCurrentCharacter(){
         return id_character_dic_[CurrentCharacterId()];
+    }
+
+    public void SetUI(){
+        Character current_character = GetCurrentCharacter();
+        if(turn_ui_ == null)
+            turn_ui_ = GameObject.Find("Canvas").GetComponent<TurnUI>();
+        turn_ui_.SetMessageText(current_character.name_, current_character.cash_);
+    }
+
+    public void Initialize(){
+        Character current_character = GetCurrentCharacter();
+        current_character.InitializeTurn();
+        SetUI();
     }
 }

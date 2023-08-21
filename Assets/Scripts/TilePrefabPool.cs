@@ -12,6 +12,12 @@ public class TilePrefabInfo{
     public string name_;
     public int terrain_property_;
     public int[] block_property_;
+    public List<BuildingInfo> building_info_list_;
+}
+
+public class BuildingInfo{
+    public int max_health_;
+    public int cash_;
 }
 
 public class TilePrefabPool: Singleton<TilePrefabPool>{
@@ -48,6 +54,12 @@ public class TilePrefabPool: Singleton<TilePrefabPool>{
         for(int i = 0; i != 4; ++i){
             tile.block_property_[i] = tile_prefab_info.block_property_[i];
         }
+
+        if(tile_prefab_info.building_info_list_.Count == 0) return;
+        BuildingInfo building_info = tile_prefab_info.building_info_list_[0];
+        Building building = tile.gameObject.GetComponent<Building>();
+        building.max_health_ = building_info.max_health_;
+        building.cash_ = building_info.cash_;
     }
 
     private void StartTile(Tile tile){

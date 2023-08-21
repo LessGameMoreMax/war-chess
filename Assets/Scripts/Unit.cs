@@ -117,7 +117,9 @@ public abstract class Unit : MonoBehaviour
     }
 
     public virtual bool HavePath(GameObject dist){
-        return move_tiles_set_.Contains(dist);
+        Tile tile = dist.GetComponent<Tile>();
+        if(tile == tile_) return true;
+        return move_tiles_set_.Contains(dist) && tile.unit_ == null;
     }
 
     public virtual void SearchPath(GameObject dist){
@@ -140,7 +142,9 @@ public abstract class Unit : MonoBehaviour
 
     private IEnumerator Move(){
         MoveBegin();
-        while(path_tiles_list_.Count > 0){
+        bool is_end = false;
+        if(path_tiles_list_.Count == 0) is_end = true;
+        while(!is_end){
             float work_time = 0;
             Vector3 origin_pos = transform.position;
             Vector3 dist_pos = path_tiles_list_[0].transform.position;
@@ -149,12 +153,8 @@ public abstract class Unit : MonoBehaviour
                 transform.position = Vector3.Lerp(origin_pos, dist_pos, work_time);
                 transform.position = new Vector3(transform.position.x, origin_pos.y, transform.position.z);
                 if(work_time >= 1.0f){
-                    tile_.unit_ = null;
-                    tile_ = path_tiles_list_[0].GetComponent<Tile>();
-                    tile_.unit_ = this;
-                    x_ = tile_.x_;
-                    y_ = tile_.y_;
-                    path_tiles_list_.RemoveAt(0);
+                    if(path_tiles_list_.Count > 1) path_tiles_list_.RemoveAt(0);
+                    else is_end = true;
                     break;
                 }
                 yield return null;
@@ -178,6 +178,14 @@ public abstract class Unit : MonoBehaviour
     }
 
     private void MoveFinish(){
+        if(path_tiles_list_.Count == 1){
+            tile_.unit_ = null;
+            tile_ = path_tiles_list_[0].GetComponent<Tile>();
+            tile_.unit_ = this;
+            x_ = tile_.x_;
+            y_ = tile_.y_;
+            path_tiles_list_.RemoveAt(0);
+        }
         ClearPath();
         ClearMove();
         SelectManager.GetInstance().current_state_ = CurrentStateEnum.Moved;
@@ -272,7 +280,7 @@ public abstract class Unit : MonoBehaviour
         return attack_real_tiles_set_.Contains(other.tile_.gameObject);
     }
 
-    public virtual bool HaveLoadUnit(Unit other){
+    public virtual bool HaveLoadUni(Unit other){
         return false;
     }
 
@@ -296,10 +304,10 @@ public abstract class Unit : MonoBehaviour
                 if(!attack_real_tiles_set_.Contains(obj) && !black_set.Contains(obj) && temp_tile.unit_ != null && CanAttack(temp_tile.unit_)) 
                     attack_real_tiles_set_.Add(obj);
             }
-                
         }else{
             foreach(GameObject obj in set){
-                if(!attack_tiles_set_.Contains(obj) && !black_set.Contains(obj))
+                Tile temp_tile = obj.GetComponent<Tile>();
+                if(!attack_tiles_set_.Contains(obj) && !black_set.Contains(obj) && (temp_tile.unit_ == null || CanAttack(temp_tile.unit_)))
                     attack_tiles_set_.Add(obj);
             }
         }
@@ -339,8 +347,9 @@ public abstract class Unit : MonoBehaviour
         return health_ <= 0;
     }
 
-    public virtual bool SearchMoveCondition(Tile tile, HashSet<GameObject> move_tiles_set){
-        return tile.unit_ != null;
+    public virtual bool SearchMoveCondition(Tile tile){
+        if(tile.unit_ != null && !IsFriend(tile.unit_)) return true;
+        return false;
     }
 
     public virtual void Load(Unit unit){

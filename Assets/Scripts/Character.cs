@@ -8,7 +8,7 @@ public class Character
     public int id_;
     public string name_;
     public Faction faction_;
-    public int money_;
+    public int cash_;
     public HashSet<Unit> unit_set_;
     public HashSet<Building> building_set_;
     
@@ -52,6 +52,9 @@ public class Character
     }
 
     protected virtual void InitializeBuilding(){
+        foreach(Building building in building_set_){
+            cash_ += building.GetCash();
+        }
 
     }
 

@@ -15,7 +15,6 @@ public class BuildAndPlaceInfo{
     public int x_;
     public int y_;
     public int character_id_;
-    public int health_;
 }
 
 public class TaskInfo{
@@ -69,7 +68,7 @@ public class TaskLoader : Singleton<TaskLoader>
         task.current_character_index_ = 0;
         int count = 0;
         foreach(Character character in task.id_character_dic_.Values){
-            character.money_ = task_info.power_initial_money_[count++];
+            character.cash_ = task_info.power_initial_money_[count++];
         }
         task.player_character_set_ = new HashSet<int>();
         for(int i = 0;i != task_info.player_power_.Count; ++i)
@@ -101,11 +100,11 @@ public class TaskLoader : Singleton<TaskLoader>
             BuildAndPlaceInfo build_and_place_info = task_info.build_list_[i];
             GameObject tile = task.map_.GetTile(build_and_place_info.x_, build_and_place_info.y_);
             Building building = tile.GetComponent<Building>();
-            Debug.Assert(building != null, "TaskLoader.cs---building load error");
-            building.max_health_ = task_info.build_list_[i].health_;
             building.InitializeBuilding();
             building.AttachToCharacter(build_and_place_info.character_id_);
         }
+
+        task.Initialize();
     }
 
     public int GetTaskCount(){

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UnitSolider : Unit
 {
-    HashSet<GameObject> troop_tiles_;
     Building is_occupied_building_;
     // Start is called before the first frame update
     void Start()
@@ -22,41 +21,35 @@ public class UnitSolider : Unit
         base.Attack(unit);
     }
 
-    public override bool SearchMoveCondition(Tile tile, HashSet<GameObject> move_tiles_set){
-        if(base.SearchMoveCondition(tile, move_tiles_set)){
-            Unit unit = tile.unit_;
-            if(unit != null && unit.CanLoad(this)){
-                if(!move_tiles_set.Contains(tile.gameObject)){
-                    tile.gameObject.GetComponent<TileColor>().ShowMoveColor();
-                    move_tiles_set.Add(tile.gameObject);
-                    if(!troop_tiles_.Contains(tile.gameObject)) troop_tiles_.Add(tile.gameObject);
-                }
-            }
-            return true;
+    public override bool HaveLoad(){
+        Map map = Task.GetInstance().map_;
+
+        GameObject temp = map.GetTile(x_ - 1, y_);
+        Tile tile = null;
+        if(temp != null){
+            tile = temp.GetComponent<Tile>();
+            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+        }
+
+        temp = map.GetTile(x_ + 1, y_);
+        if(temp != null){
+            tile = temp.GetComponent<Tile>();
+            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+        }
+        
+
+        temp = map.GetTile(x_, y_ - 1);
+        if(temp != null){
+            tile = temp.GetComponent<Tile>();
+            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+        }
+
+        temp = map.GetTile(x_, y_ + 1);
+        if(temp != null){
+            tile = temp.GetComponent<Tile>();
+            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
         }
         return false;
-    }
-
-    public override bool HavePath(GameObject dist){
-        return base.HavePath(dist) && !troop_tiles_.Contains(dist);
-    }
-
-    public override void SearchMove(){
-        if(troop_tiles_ == null) troop_tiles_ = new HashSet<GameObject>();
-        else troop_tiles_.Clear();
-        base.SearchMove();
-    }
-
-    public override bool HaveLoad(){
-        if(troop_tiles_.Contains(Task.GetInstance().map_.GetTile(x_ - 1, y_))) return true;
-        if(troop_tiles_.Contains(Task.GetInstance().map_.GetTile(x_ + 1, y_))) return true;
-        if(troop_tiles_.Contains(Task.GetInstance().map_.GetTile(x_, y_ - 1))) return true;
-        if(troop_tiles_.Contains(Task.GetInstance().map_.GetTile(x_, y_ + 1))) return true;
-        return false;
-    }
-
-    public override bool HaveLoadUnit(Unit other){
-        return troop_tiles_.Contains(other.tile_.gameObject);
     }
 
     public override bool IsOccupiedState(){
