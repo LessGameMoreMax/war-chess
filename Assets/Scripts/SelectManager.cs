@@ -255,8 +255,7 @@ public class SelectManager : MonoBehaviour
                 current_gameObject_ = null;
             }
             if(load_unit == null) return;
-            if(load_unit.CanLoad(unit) && 
-                    Mathf.Abs(load_unit.x_ - unit.x_) + Mathf.Abs(load_unit.y_ - unit.y_) < 2){
+            if(unit.IsLoader(load_unit)){
                 current_gameObject_ = temp_gameObject;
                 current_gameObject_.GetComponent<ContourColor>().ShowPreSelectColor();
             }

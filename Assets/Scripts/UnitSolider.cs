@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitSolider : Unit
 {
     Building is_occupied_building_;
+    HashSet<Unit> troop_units_;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,33 +24,44 @@ public class UnitSolider : Unit
 
     public override bool HaveLoad(){
         Map map = Task.GetInstance().map_;
-
         GameObject temp = map.GetTile(x_ - 1, y_);
-        Tile tile = null;
+        Unit unit = null;
         if(temp != null){
-            tile = temp.GetComponent<Tile>();
-            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+            unit = temp.GetComponent<Tile>().unit_;
+            if(troop_units_.Contains(unit)) return true;
         }
 
         temp = map.GetTile(x_ + 1, y_);
         if(temp != null){
-            tile = temp.GetComponent<Tile>();
-            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
-        }
-        
-
-        temp = map.GetTile(x_, y_ - 1);
-        if(temp != null){
-            tile = temp.GetComponent<Tile>();
-            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+            unit = temp.GetComponent<Tile>().unit_;
+            if(troop_units_.Contains(unit)) return true;
         }
 
         temp = map.GetTile(x_, y_ + 1);
         if(temp != null){
-            tile = temp.GetComponent<Tile>();
-            if(tile.unit_ != null && tile.unit_.CanLoad(this)) return true;
+            unit = temp.GetComponent<Tile>().unit_;
+            if(troop_units_.Contains(unit)) return true;
         }
+
+        temp = map.GetTile(x_, y_ - 1);
+        if(temp != null){
+            unit = temp.GetComponent<Tile>().unit_;
+            if(troop_units_.Contains(unit)) return true;
+        }
+
         return false;
+    }
+
+    public override void SearchMoveCondition(Tile tile){
+        if(tile.unit_ != null && tile.unit_.CanLoad(this))
+            troop_units_.Add(tile.unit_);
+            
+    }
+
+    public override void SearchMove(){
+        if(troop_units_ == null) troop_units_ = new HashSet<Unit>();
+        else troop_units_.Clear();
+        base.SearchMove();
     }
 
     public override bool IsOccupiedState(){
@@ -93,6 +105,11 @@ public class UnitSolider : Unit
         if(is_occupied_building_ != null && tile_.gameObject != is_occupied_building_.gameObject)
             CancleOccupy();
         base.SetBide();
+    }
+
+    public override bool IsLoader(Unit load_unit){
+        return troop_units_.Contains(load_unit) && 
+                Mathf.Abs(load_unit.x_ - x_) + Mathf.Abs(load_unit.y_ - y_) < 2;
     }
 
 

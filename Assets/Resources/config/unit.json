@@ -11,9 +11,6 @@
         "move_property_" : 3,
         "view_property_" : 4,
         "attack_scope_property_" : [1,1],
-        "move_terrain_property_" : [
-            0, 1, 1, 1, 1, 1, 0
-        ],
         "unit_type_" : 0,
         "max_health_" : 100
     },
@@ -29,9 +26,6 @@
         "move_property_" : 4,
         "view_property_" : 4,
         "attack_scope_property_" : [0,0],
-        "move_terrain_property_" : [
-            0, 1, 0, 1, 0, 0
-        ],
         "unit_type_" : 1,
         "max_health_" : 100
     },
@@ -47,9 +41,6 @@
         "move_property_" : 4,
         "view_property_" : 3,
         "attack_scope_property_" : [3,5],
-        "move_terrain_property_" : [
-            0, 1, 0, 1, 0, 0
-        ],
         "unit_type_" : 1,
         "max_health_" : 100
     },
@@ -65,9 +56,6 @@
         "move_property_" : 6,
         "view_property_" : 5,
         "attack_scope_property_" : [1,1],
-        "move_terrain_property_" : [
-            0, 1, 1, 1, 1, 1
-        ],
         "unit_type_" : 2,
         "max_health_" : 100
     }

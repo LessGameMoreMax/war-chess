@@ -54,6 +54,11 @@ public class Character
     protected virtual void InitializeBuilding(){
         foreach(Building building in building_set_){
             cash_ += building.GetCash();
+            Unit unit = building.unit_;
+            if(unit != null && unit.character_id_ == id_){
+                unit.Healed((int)(unit.max_health_ * 0.2));
+            }
+                
         }
 
     }

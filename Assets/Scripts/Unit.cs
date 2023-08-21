@@ -17,7 +17,7 @@ public abstract class Unit : MonoBehaviour
     public int move_property_;
     public int view_property_;
     public int[] attack_scope_property_;
-    public int[] move_terrain_property_;
+    // public int[] move_terrain_property_;
     public int unit_type_;
     public int max_health_;
 
@@ -71,8 +71,9 @@ public abstract class Unit : MonoBehaviour
         return Task.GetInstance().character_friend_set_dic_[character_id_].Contains(building.character_id_);
     }
 
-    public virtual bool CanMove(int terrain_property_){
-        return move_terrain_property_[terrain_property_] == 1;
+    public virtual bool CanMove(Tile tile){
+        return tile.GetBlockProperty(unit_type_) != 0 && 
+                (tile.unit_ == null || IsFriend(tile.unit_));
     }
 
     public virtual bool CanLoad(Unit unit){
@@ -347,8 +348,10 @@ public abstract class Unit : MonoBehaviour
         return health_ <= 0;
     }
 
-    public virtual bool SearchMoveCondition(Tile tile){
-        if(tile.unit_ != null && !IsFriend(tile.unit_)) return true;
+    public virtual void SearchMoveCondition(Tile tile){
+    }
+
+    public virtual bool IsLoader(Unit unit){
         return false;
     }
 
@@ -387,6 +390,11 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void CancleOccupy(){
 
+    }
+
+    public virtual void Healed(int health){
+        health_ = Mathf.Min(max_health_, health_ + health);
+        health_ui_.SetText(health_);
     }
 
 

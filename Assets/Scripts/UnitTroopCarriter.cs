@@ -56,7 +56,7 @@ public class UnitTroopCarriter : Unit
     public override bool CanUnload(GameObject temp){
         Tile tile = temp.GetComponent<Tile>();
         if(Mathf.Abs(tile.x_ - x_) + Mathf.Abs(tile.y_ - y_) > 1) return false;
-        return tile != null && carried_unit_.CanMove(tile.terrain_property_) && tile.unit_ == null;
+        return tile != null && carried_unit_.CanMove(tile) && tile.unit_ == null;
     }
 
     public override void UnloadToTile(GameObject temp){
